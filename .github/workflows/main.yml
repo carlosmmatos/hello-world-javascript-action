@@ -1,4 +1,10 @@
-on: [push]
+on:
+  workflow_dispatch:
+    inputs:
+      name-to-greet:
+        description: 'Name of whom to greet'
+        required: true
+        default: 'World!'
 
 jobs:
   hello_world_job:
@@ -9,7 +15,7 @@ jobs:
         id: hello
         uses: carlosmmatos/hello-world-javascript-action@v0.0.2
         with:
-          who-to-greet: 'Mona the Octocat'
+          who-to-greet: ${{ inputs.name-to-greet }}
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
